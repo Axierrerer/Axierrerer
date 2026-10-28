@@ -60,8 +60,21 @@ REST API with payment and logistics integrations, background processing and cach
 ## 🛠️ Open-source / pet projects
 
 ### [Event-Driven Orders Processing Platform](https://github.com/Axierrerer/REPO-NAME)
-Short description: what the system does and which architecture it uses.
-`FastAPI` `Kafka` `PostgreSQL` `Docker`
+Order processing platform for a small e-commerce store: product catalog, users and roles, checkout, inventory management and notifications.
+- **Microservices** on Python (FastAPI, asyncio), each owning its own domain
+- **Async + sync communication** — events via Kafka, direct calls via REST and gRPC
+- **Choreography-based saga** — an order goes from checkout to delivery with each service reacting to other services' events; on failure, services publish compensating events to roll back their steps
+
+`FastAPI` `asyncio` `Kafka` `gRPC` `PostgreSQL` `Docker`
+
+### [Async Payment Processing Service](https://github.com/Axierrerer/REPO-NAME)
+Payment-provider-style microservice: accepts payments via a REST API (`202 Accepted`), processes them asynchronously through an emulated payment gateway and notifies merchants via signed webhooks.
+- **Transactional Outbox** — payment and event are written in one transaction; a separate relay publishes events with publisher confirms and `mandatory` routing, so no event is lost or silently dropped
+- **Idempotency** — `Idempotency-Key` header plus request hash protects against duplicate payments; idempotent consumer for at-least-once delivery
+- **Retries & DLQ** — exponential backoff via per-delay TTL retry queues (2s → 4s → 8s), Dead Letter Queue for messages that failed all attempts
+- **Clean layering** — domain entities with business invariants, use cases, Unit of Work, repositories
+
+`FastAPI` `Pydantic v2` `SQLAlchemy 2.0 (async)` `PostgreSQL` `RabbitMQ` `FastStream` `Alembic` `Docker`
 
 ---
 
