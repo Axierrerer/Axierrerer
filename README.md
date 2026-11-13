@@ -45,7 +45,7 @@ Event-driven service extracted from the monolith (−30% CPU): consumes Kafka ev
 `Python` `Kafka` `Temporal` `openpyxl` `LibreOffice / unoserver` `MinIO (S3)` `Docker`
 
 ### 🔎 Company search for data verification
-Search over a directory of 50K+ companies feeding an ML model that checks data reliability: exact search (B-tree) and fuzzy search with relevance scoring (pg_trgm + GIN). Later moved to Elasticsearch (fuzzy matching, custom analyzers, zero-downtime reindexing) to avoid loading the ERP's main database.
+Search over a company directory feeding an ML model that checks data reliability: exact search (B-tree) and fuzzy search with relevance scoring (pg_trgm + GIN). Later moved to Elasticsearch (fuzzy matching, custom analyzers, zero-downtime reindexing) to avoid loading the ERP's main database.
 `FastAPI` `PostgreSQL` `pg_trgm` `Elasticsearch` `Temporal`
 
 ### 🔁 Analytics platform: S2S integration
