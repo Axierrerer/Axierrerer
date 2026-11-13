@@ -16,7 +16,7 @@ Python backend developer with **4+ years** of commercial experience building B2B
 
 I design and build microservices and distributed systems with Django, FastAPI, Kafka and Temporal. My focus is performance and reliability: I've made APIs 10x+ faster, cut the main application's CPU load by ~30% and built resilient integrations with payment and external systems. I own services end to end — from data and API design to release, monitoring and production support.
 
-📍 Based in Georgia (UTC+4) · 🌍 Open to remote Python backend roles
+🌍 Open to remote Python backend roles
 
 ---
 
