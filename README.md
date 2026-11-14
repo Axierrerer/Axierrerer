@@ -73,6 +73,16 @@ Payment-provider-style microservice: accepts payments via a REST API (`202 Accep
 
 `FastAPI` `Pydantic v2` `SQLAlchemy 2.0 (async)` `PostgreSQL` `RabbitMQ` `FastStream` `Alembic` `Docker`
 
+### [Scalable WebSocket Chat](https://github.com/Axierrerer/websocket-chat)
+Real-time chat on FastAPI WebSockets that scales horizontally: several app instances run behind a load balancer, and a message sent to one replica reaches every client of that chat on all replicas.
+- **Cross-instance fan-out via Redis Pub/Sub** — each message is published to a `chat:{chat_id}` channel; every instance runs a listener on `PSUBSCRIBE chat:*` and broadcasts to its local connections
+- **Connection management** — a dedicated manager tracks connections per chat; the Redis listener starts and stops with the app lifespan
+- **Validated events** — incoming messages are validated with Pydantic schemas; invalid ones are logged and skipped without dropping the connection
+- **Dependency injection** — dependencies are wired through a DI container (punq), keeping transport, infrastructure and config decoupled
+- **Quality** — unit tests plus integration tests against a real Redis via Testcontainers, strict mypy, ruff; runs with Docker Compose (app waits for the Redis healthcheck)
+
+`Python 3.14` `FastAPI` `WebSockets` `asyncio` `Redis Pub/Sub` `Pydantic v2` `punq` `pytest` `Testcontainers` `Docker`
+
 ---
 
 ## 🧰 Tech stack
@@ -83,6 +93,7 @@ Payment-provider-style microservice: accepts payments via a REST API (`202 Accep
 ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white)
 ![DRF](https://img.shields.io/badge/DRF-A30000?style=flat-square&logo=django&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+![WebSockets](https://img.shields.io/badge/WebSockets-010101?style=flat-square&logo=socketdotio&logoColor=white)
 ![Pydantic](https://img.shields.io/badge/Pydantic-E92063?style=flat-square&logo=pydantic&logoColor=white)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy_2.0-D71F00?style=flat-square&logo=sqlalchemy&logoColor=white)
 ![Alembic](https://img.shields.io/badge/Alembic-6BA539?style=flat-square&logo=python&logoColor=white)
